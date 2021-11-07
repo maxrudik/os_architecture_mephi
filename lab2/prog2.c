@@ -6,7 +6,6 @@
 int main() {
 	pid_t pid;
 	pid = fork();
-	int return_val;
 
 	if (pid == -1) {
 		perror("Fork error\n");
@@ -14,10 +13,16 @@ int main() {
 	}
 	if (pid == 0) {
 		printf("Child message\n");
-		exit(return_val);
+		printf("Pid: %d\n", getpid());
+		printf("Ppid: %d\n", getppid());
+		printf("Group pid: %d\n", getpgid(0));
+		exit(0);
 	} else {
 		printf("Parent message\n");
-		wait();
+		printf("Pid: %d\n", getpid());
+		printf("Ppid: %d\n", getppid());
+		printf("Group pid: %d\n", getpgid(0));
+		printf("Exit status: %d\n", wait());
 	}
 	return 0;
 }
